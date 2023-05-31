@@ -1,0 +1,47 @@
+﻿<Page x:Class="_515_ZF_LabelPrinter.Pages.SettingPages.MsSqlSettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:p="clr-namespace:_515_ZF_LabelPrinter.Properties"
+      xmlns:local="clr-namespace:_515_ZF_LabelPrinter.Pages.SettingPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="400"
+      Title="MsSqlSettingPage" MinHeight="500">
+
+    <Grid x:Name="SettingMainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl >
+            <TabItem Header="Lokální databáze">
+                <Grid x:Name="MsSqlSettings">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="lblUser" Content="SQL User:" VerticalAlignment="Center" Style="{DynamicResource JhvLabel}" />
+                    <TextBox x:Name="txbUser" Text="{Binding Source={x:Static p:Settings.Default}, Path=SQLUser, Mode=TwoWay}" Style="{DynamicResource JhvTextBox}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
+                    <Label x:Name="lblPassword" Content="Passwordr:" Grid.Row="1" VerticalAlignment="Center" Style="{DynamicResource JhvLabel}"/>
+                    <PasswordBox x:Name="pbPassword" Style="{DynamicResource JhvPasswordBox}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" PasswordChanged="pbPassword_PasswordChanged" />
+                    <Label x:Name="lblServerUrl" Content="Server URL" Grid.Row="2" VerticalAlignment="Center" Style="{DynamicResource JhvLabel}"/>
+                    <TextBox x:Name="txbServerUrl" Text="{Binding Source={x:Static p:Settings.Default}, Path=SQLServerUrl, Mode=TwoWay}" Style="{DynamicResource JhvTextBox}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
+                    <Label x:Name="lblDatabaseName" Content="Database name:" Grid.Row="3" VerticalAlignment="Center" Style="{DynamicResource JhvLabel}"/>
+                    <TextBox x:Name="txbDatabaseName" Text="{Binding Source={x:Static p:Settings.Default}, Path=SQLDatabaseName, Mode=TwoWay}" Style="{DynamicResource JhvTextBox}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" />
+
+                    <Button x:Name="btnTestConnection" Content="Test"  Grid.Row="4" Grid.Column="1" Style="{DynamicResource JhvButtonMainControl}" VerticalAlignment="Center" Click="BtnTestConnection_Click" />
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Page>

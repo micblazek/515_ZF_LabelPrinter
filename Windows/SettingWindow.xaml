@@ -1,0 +1,29 @@
+﻿<Window x:Class="_515_ZF_LabelPrinter.Windows.SettingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_515_ZF_LabelPrinter.Windows"
+        mc:Ignorable="d"
+        Title="Nastavení" Height="700" Width="500" WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Right" DockPanel.Dock="Bottom">
+            <Button x:Name="Storno" Content="Storno" Margin="5" Click="Storno_Click" Padding="5" Style="{DynamicResource JhvButton_Blue}"/>
+            <Button x:Name="Save" Content="Uložit" Margin="5" Click="Save_Click" Padding="5" Style="{DynamicResource JhvButton_Blue}"/>
+        </WrapPanel>
+        <TabControl>
+            <TabItem Header="Obecné">
+                <Frame x:Name="frmGeneral" NavigationUIVisibility="Hidden" VerticalAlignment="Top"/>
+            </TabItem>
+            <!--<TabItem Header="Uživatel">
+                <Frame x:Name="frmUser" NavigationUIVisibility="Hidden" VerticalAlignment="Top"/>
+            </TabItem>-->
+            <TabItem Header="MS-SQL">
+                <Frame x:Name="frmMSSQLSetting" NavigationUIVisibility="Hidden" VerticalAlignment="Top"/>
+            </TabItem>
+            <TabItem Header="Soubory">
+                <Frame x:Name="frmImportedFiles" NavigationUIVisibility="Hidden" VerticalAlignment="Top"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

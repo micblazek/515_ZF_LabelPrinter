@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="_515_ZF_LabelPrinter.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OutputPathForInputKardex" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OutputPathForOutputKardex" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SQLUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jhv</Value>
+    </Setting>
+    <Setting Name="SQLPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2708</Value>
+    </Setting>
+    <Setting Name="SQLServerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="SQLDatabaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">515_ZF</Value>
+    </Setting>
+    <Setting Name="AutomaticApplicationStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

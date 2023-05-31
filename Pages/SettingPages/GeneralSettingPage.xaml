@@ -1,0 +1,29 @@
+﻿<Page x:Class="_515_ZF_LabelPrinter.Pages.SettingPages.GeneralSettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_515_ZF_LabelPrinter.Pages.SettingPages"
+      xmlns:p="clr-namespace:_515_ZF_LabelPrinter.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="400"
+      Title="GeneralSettingPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Automatické spuštění">
+            <CheckBox Content="Aplikace se spustí po startu systému" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=AutomaticApplicationStart, Mode=TwoWay}"
+                         Style="{DynamicResource JhvCheckBox}" Click="Autostart_Click" />
+        </GroupBox>
+
+        <!--<Button x:Name="btnLoadUserSettings" Content="Načíst nastavení aplikace ze souboru ..."  Grid.Row="0" Grid.Column="1" Style="{DynamicResource JhvButton_Blue}"  Click="btnLoadUserSettings_Click" Margin="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
+        <!--<Button x:Name="btnSaveUserSettings" Content="Uložit nastavení aplikace do souboru ..."  Grid.Row="1" Grid.Column="1" Style="{DynamicResource JhvButton_Blue}" Click="btnSaveUserSettings_Click" Margin="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+    </Grid>
+</Page>

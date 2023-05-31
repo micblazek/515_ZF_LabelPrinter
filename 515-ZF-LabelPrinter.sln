@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "515-ZF-LabelPrinter", "515-ZF-LabelPrinter.csproj", "{5A75A247-25F4-46D2-8542-E278831643F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jhv.DotNet.Core", "..\Jhv.DotNet.Core\Jhv.DotNet.Core.csproj", "{F8BB79CA-1B86-486A-A540-7FE2EBBBBE9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jhv.DotNet.MsSql", "..\Jhv.DotNet.MsSql\Jhv.DotNet.MsSql.csproj", "{2BDEF619-8A25-42B1-B362-F0E2CB3AAE4F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jhv.DotNet.OpcUa", "..\Jhv.DotNet.OpcUa\Jhv.DotNet.OpcUa.csproj", "{466467A6-B426-4473-AAA2-51CC9BE7A9FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "515-ZF-Core", "..\515 - ZF - Core\515-ZF-Core.csproj", "{51999EE4-5907-4235-8C61-43DC61052F9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "515-ZF-PlcCommunication", "..\515 - ZF - PLC Communication\515-ZF-PlcCommunication.csproj", "{AC74A894-31EC-4FE5-AEBD-E78C966AB176}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A75A247-25F4-46D2-8542-E278831643F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A75A247-25F4-46D2-8542-E278831643F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A75A247-25F4-46D2-8542-E278831643F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A75A247-25F4-46D2-8542-E278831643F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BB79CA-1B86-486A-A540-7FE2EBBBBE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BB79CA-1B86-486A-A540-7FE2EBBBBE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BB79CA-1B86-486A-A540-7FE2EBBBBE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BB79CA-1B86-486A-A540-7FE2EBBBBE9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BDEF619-8A25-42B1-B362-F0E2CB3AAE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BDEF619-8A25-42B1-B362-F0E2CB3AAE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BDEF619-8A25-42B1-B362-F0E2CB3AAE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BDEF619-8A25-42B1-B362-F0E2CB3AAE4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466467A6-B426-4473-AAA2-51CC9BE7A9FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466467A6-B426-4473-AAA2-51CC9BE7A9FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466467A6-B426-4473-AAA2-51CC9BE7A9FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466467A6-B426-4473-AAA2-51CC9BE7A9FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51999EE4-5907-4235-8C61-43DC61052F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51999EE4-5907-4235-8C61-43DC61052F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51999EE4-5907-4235-8C61-43DC61052F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51999EE4-5907-4235-8C61-43DC61052F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC74A894-31EC-4FE5-AEBD-E78C966AB176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC74A894-31EC-4FE5-AEBD-E78C966AB176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC74A894-31EC-4FE5-AEBD-E78C966AB176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC74A894-31EC-4FE5-AEBD-E78C966AB176}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A86DBA99-CE90-4A55-A273-34944814D78A}
+	EndGlobalSection
+EndGlobal

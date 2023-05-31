@@ -1,0 +1,55 @@
+﻿<Page x:Class="_515_ZF_LabelPrinter.Pages.SettingPages.ImportedFilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_515_ZF_LabelPrinter.Pages.SettingPages"
+      xmlns:p="clr-namespace:_515_ZF_LabelPrinter.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="400"
+      Title="Nastavení importu">
+
+    <Grid  Grid.Row="4" Grid.RowSpan="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Výstup pro vstupní kardex" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Adresář:" Style="{DynamicResource JhvLabel}" Grid.Column="0"  />
+                <Button x:Name="btnSelectOutputPathForInputKardex" Content="Vybrat adresář ..." Grid.Column="2"  
+                        Style="{DynamicResource JhvButton_BlueStretch}" Click="btnSelectOutputPathForInputKardex_Click" />
+                <TextBox Grid.Column="0" Style="{DynamicResource JhvTextBox}" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" 
+                             TextWrapping="WrapWithOverflow" Text="{Binding Source={x:Static p:Settings.Default}, Path=OutputPathForInputKardex, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Výstup pro výstupní kardex" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Adresář:" Style="{DynamicResource JhvLabel}" Grid.Column="0"  />
+                <Button x:Name="btnSelectOutputPathForOutputKardex" Content="Vybrat adresář ..." Grid.Column="2"  
+                        Style="{DynamicResource JhvButton_BlueStretch}" Click="btnSelectOutputPathForOutputKardex_Click"  />
+                <TextBox Grid.Column="0" Style="{DynamicResource JhvTextBox}" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" 
+                             TextWrapping="WrapWithOverflow" Text="{Binding Source={x:Static p:Settings.Default}, Path=OutputPathForOutputKardex, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>
