@@ -6,7 +6,7 @@
     <RootNamespace>_515_ZF_LabelPrinter</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>JhvVoice.ico</ApplicationIcon>
+    <ApplicationIcon>JhvPrinter.ico</ApplicationIcon>
     <StartupObject>_515_ZF_LabelPrinter.App</StartupObject>
   </PropertyGroup>
 
@@ -84,7 +84,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="JhvVoice.ico">
+    <Content Include="JhvPrinter.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
