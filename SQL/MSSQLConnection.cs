@@ -12,12 +12,12 @@ namespace _515_ZF_LabelPrinter.SQL
         {
         }
 
-        public List<LabelData> LoadKardexSpeakerComands(string KardexCode)
+        public List<LabelData> LoadKardexSpeakerComands()
         {
             List<LabelData> tmp = new List<LabelData>();
-            string cmd = "Select TOP(1) * from " + Constants.KardexSpeakerTableName
-                + " WHERE Status = 5 AND Kardex = '" + KardexCode + "'"
-                + " ORDER BY Timestamp desc";
+            string cmd = "Select TOP(1) * from " + Constants.PrinterProcessBoxRequestsTableName
+                + " WHERE Status = 1"
+                + " ORDER BY UpdateTimeStapm desc";
 
             DataTable da = FillDataTable(cmd, true);
 
@@ -33,12 +33,11 @@ namespace _515_ZF_LabelPrinter.SQL
 
         public void MarkKardexSpeakerAsDone(LabelData Data)
         {
-            //string cmd = "UPDATE " + Constants.KardexSpeakerTableName + " SET " +
-            //    "Status = 1 ," +
-            //    "FileName = '" + Data.FileName + "'" +
-            //    "WHERE ID = " + Data.Id;
+            string cmd = "UPDATE " + Constants.PrinterProcessBoxRequestsTableName + " SET " +
+                "Status = 2 " +
+                "WHERE Id = " + Data.Id;
 
-            //ExecuteMSSQLCommand(cmd);
+            ExecuteMSSQLCommand(cmd);
         }
 
 

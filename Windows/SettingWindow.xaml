@@ -21,7 +21,7 @@
             <TabItem Header="MS-SQL">
                 <Frame x:Name="frmMSSQLSetting" NavigationUIVisibility="Hidden" VerticalAlignment="Top"/>
             </TabItem>
-            <TabItem Header="Soubory">
+            <TabItem Header="Tiskárna">
                 <Frame x:Name="frmImportedFiles" NavigationUIVisibility="Hidden" VerticalAlignment="Top"/>
             </TabItem>
         </TabControl>

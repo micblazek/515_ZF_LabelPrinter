@@ -5,6 +5,7 @@ using Jhv.DotNet.Core.Tool;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -39,7 +40,6 @@ namespace _515_ZF_LabelPrinter
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             dbMonitorInfo = new PrinterMonitorInformation();
-
             dmpCommunicationWithDatabase.DataContext = dbMonitorInfo;
 
             InitMsSqlConnection();
@@ -54,7 +54,7 @@ namespace _515_ZF_LabelPrinter
             InitRefreshMsSql();
             try
             {
-                if(MsSqlCon.IsConnected())
+                if (MsSqlCon.IsConnected())
                     DatabaseControl.Start();
             }
             catch (Exception)
@@ -119,7 +119,6 @@ namespace _515_ZF_LabelPrinter
 
         private async Task StartContractImportAsync()
         {
-            dbMonitorInfo.LastStart = DateTime.Now;
             lock (DataPumpWorking)
             {
                 MSSQLConnection con;
@@ -134,17 +133,16 @@ namespace _515_ZF_LabelPrinter
 
                 try
                 {
-                    List<LabelData> InputKardexSpeakerComand = MsSqlCon.LoadKardexSpeakerComands("K_IN");
-
                     //Vstupní kardex
-                    if (InputKardexSpeakerComand.Count > 0 && (LabelPrintWorker == null || !LabelPrintWorker.IsBusy))
+                    if ( LabelPrintWorker == null || !LabelPrintWorker.IsBusy)
                     {
                         LabelPrintWorker = new BackgroundWorker();
                         LabelPrintWorker.DoWork += LabelPrintWorker_DoWork;
                         LabelPrintWorker.RunWorkerCompleted += LabelPrintWorker_RunWorkerCompleted;
 
                         List<object> TmpInput = new List<object>();
-                        TmpInput.Add(InputKardexSpeakerComand);
+                        TmpInput.Add(con);
+                        dbMonitorInfo.LastStart = DateTime.Now;
                         LabelPrintWorker.RunWorkerAsync(TmpInput);
                     }
                 }
@@ -153,21 +151,59 @@ namespace _515_ZF_LabelPrinter
                     JhvLogger.CatchException(ex.Message, "DatabaseControl_Tick");
                 }
             }
-            dbMonitorInfo.LastEnd = DateTime.Now;
-            dbMonitorInfo.DurationLast = dbMonitorInfo.LastEnd - dbMonitorInfo.LastStart;
         }
 
 
-        #region WORKER - OutputKardex
+        #region WORKER - Printning
         private void LabelPrintWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-           
+            List<object> TmpInput = (List<object>)e.Argument;
+            MSSQLConnection con = (MSSQLConnection)TmpInput[0];
+
+            List<LabelData> tmp = con.LoadKardexSpeakerComands();
+
+            if (tmp.Count > 0)
+            {
+                if (SendLabelToPrinter())
+                {
+                    con.MarkKardexSpeakerAsDone(tmp[0]);
+                }
+                
+            }
+            
         }
 
         private void LabelPrintWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
+            dbMonitorInfo.LastEnd = DateTime.Now;
+            dbMonitorInfo.DurationLast = dbMonitorInfo.LastEnd - dbMonitorInfo.LastStart;
         }
+
+        #endregion
+
+        #region Printer
+
+        private bool SendLabelToPrinter()
+        {
+            try
+            {
+                System.Net.Sockets.TcpClient TcpClient = new System.Net.Sockets.TcpClient(Properties.Settings.Default.PrinterIpAdress, Properties.Settings.Default.PrinterPort);
+                System.Net.Sockets.NetworkStream NetworkStream = TcpClient.GetStream();
+                System.IO.Stream FileStream = System.IO.File.OpenRead(Properties.Settings.Default.PathToLabelTemplate);
+                byte[] FileBuffer = new byte[FileStream.Length];
+
+                FileStream.Read(FileBuffer, 0, (int)FileStream.Length);
+                NetworkStream.Write(FileBuffer, 0, FileBuffer.GetLength(0));
+                NetworkStream.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                JhvConsole.catchExeption(ex);
+            }
+            return false;
+        }
+
         #endregion
 
         private MSSQLConnection PrepareMsSqlConnection()

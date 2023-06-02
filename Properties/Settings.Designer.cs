@@ -25,30 +25,6 @@ namespace _515_ZF_LabelPrinter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string OutputPathForInputKardex {
-            get {
-                return ((string)(this["OutputPathForInputKardex"]));
-            }
-            set {
-                this["OutputPathForInputKardex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string OutputPathForOutputKardex {
-            get {
-                return ((string)(this["OutputPathForOutputKardex"]));
-            }
-            set {
-                this["OutputPathForOutputKardex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("jhv")]
         public string SQLUser {
             get {
@@ -104,6 +80,42 @@ namespace _515_ZF_LabelPrinter.Properties {
             }
             set {
                 this["AutomaticApplicationStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PathToLabelTemplate {
+            get {
+                return ((string)(this["PathToLabelTemplate"]));
+            }
+            set {
+                this["PathToLabelTemplate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10.9.250.122")]
+        public string PrinterIpAdress {
+            get {
+                return ((string)(this["PrinterIpAdress"]));
+            }
+            set {
+                this["PrinterIpAdress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9100")]
+        public int PrinterPort {
+            get {
+                return ((int)(this["PrinterPort"]));
+            }
+            set {
+                this["PrinterPort"] = value;
             }
         }
     }

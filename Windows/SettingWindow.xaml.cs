@@ -14,7 +14,7 @@ namespace _515_ZF_LabelPrinter.Windows
             this.Owner = Owner;
             frmGeneral.Content = new GeneralSettingPage();
             frmMSSQLSetting.Content = new MsSqlSettingPage();
-            frmImportedFiles.Content = new ImportedFilePage();
+            frmImportedFiles.Content = new PrinterSettingPage();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
