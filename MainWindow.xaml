@@ -5,8 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_515_ZF_LabelPrinter"
-        mc:Ignorable="d"
-        Title="JHV - LabelPrinter" Height="300" Width="400" ResizeMode="NoResize" Loaded="Window_Loaded" >
+        mc:Ignorable="d"       
+        Title="JHV - LabelPrinter" Height="400" Width="400" ResizeMode="NoResize" Loaded="Window_Loaded" >
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>

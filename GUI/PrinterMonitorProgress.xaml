@@ -5,9 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_515_ZF_LabelPrinter.GUI"
              mc:Ignorable="d" 
+             xmlns:convert="clr-namespace:_515_ZF_LabelPrinter.Convertors"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <convert:PrinterConnectionStatusConvertor x:Key="PrinterConnectionStatusConvertorKey"></convert:PrinterConnectionStatusConvertor>
+        <convert:PrinterConnectionStatusColorConvertor x:Key="PrinterConnectionStatusColorConvertorKey"></convert:PrinterConnectionStatusColorConvertor>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -26,6 +34,11 @@
         <GroupBox Header="Poslední kontorla - délka trvání" Grid.Row="2" Grid.Column="1">
             <Grid>
                 <Label Content="{Binding Path=DurationLast}" Style="{DynamicResource JhvLabelMedium_Blue}" ContentStringFormat="HH:mm:ss" Grid.Column="1"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Připojení k tiskárně" Grid.Row="3" Grid.Column="1">
+            <Grid  Background="{Binding PrinterConnectionStatus, Converter={StaticResource PrinterConnectionStatusColorConvertorKey}}"  >
+                <Label Content="{Binding Path=PrinterConnectionStatus, Converter={StaticResource PrinterConnectionStatusConvertorKey}}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"  Grid.Column="1"/>
             </Grid>
         </GroupBox>
     </Grid>

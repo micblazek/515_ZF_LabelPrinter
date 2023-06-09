@@ -118,5 +118,17 @@ namespace _515_ZF_LabelPrinter.Properties {
                 this["PrinterPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C://")]
+        public string FolderForGeneratedLabels {
+            get {
+                return ((string)(this["FolderForGeneratedLabels"]));
+            }
+            set {
+                this["FolderForGeneratedLabels"] = value;
+            }
+        }
     }
 }

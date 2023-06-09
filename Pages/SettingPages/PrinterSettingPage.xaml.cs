@@ -1,6 +1,9 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
+
 namespace _515_ZF_LabelPrinter.Pages.SettingPages
 {
     /// <summary>
@@ -19,9 +22,21 @@ namespace _515_ZF_LabelPrinter.Pages.SettingPages
             openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Properties.Settings.Default.PathToLabelTemplate;
 
-            if (openFileDialog.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.PathToLabelTemplate = openFileDialog.FileName;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void btnFolderForGeneratedlabels_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
+            openFileDialog.InitialDirectory = Properties.Settings.Default.FolderForGeneratedLabels;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.FolderForGeneratedLabels = openFileDialog.SelectedPath;
                 Properties.Settings.Default.Save();
             }
         }

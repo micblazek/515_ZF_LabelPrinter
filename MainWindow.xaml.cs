@@ -1,14 +1,19 @@
-﻿using _515_ZF_LabelPrinter.Data;
+﻿using _515_ZF_Core.Data;
+using _515_ZF_LabelPrinter.Data;
 using _515_ZF_LabelPrinter.SQL;
 using _515_ZF_LabelPrinter.Windows;
 using Jhv.DotNet.Core.Tool;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Threading;
+using UtfUnknown;
 
 namespace _515_ZF_LabelPrinter
 {
@@ -134,7 +139,7 @@ namespace _515_ZF_LabelPrinter
                 try
                 {
                     //Vstupní kardex
-                    if ( LabelPrintWorker == null || !LabelPrintWorker.IsBusy)
+                    if (LabelPrintWorker == null || !LabelPrintWorker.IsBusy)
                     {
                         LabelPrintWorker = new BackgroundWorker();
                         LabelPrintWorker.DoWork += LabelPrintWorker_DoWork;
@@ -160,17 +165,46 @@ namespace _515_ZF_LabelPrinter
             List<object> TmpInput = (List<object>)e.Argument;
             MSSQLConnection con = (MSSQLConnection)TmpInput[0];
 
-            List<LabelData> tmp = con.LoadKardexSpeakerComands();
+            LabelData tmp = con.LoadKardexPrinterComands();
 
-            if (tmp.Count > 0)
+            if (!SmartTool.PingHost(Properties.Settings.Default.PrinterIpAdress))
             {
-                if (SendLabelToPrinter())
-                {
-                    con.MarkKardexSpeakerAsDone(tmp[0]);
-                }
-                
+                dbMonitorInfo.PrinterConnectionStatus = PrinterMonitorInformation.ConnectedOption.Disconnected;
+                return;
             }
-            
+
+            dbMonitorInfo.PrinterConnectionStatus = PrinterMonitorInformation.ConnectedOption.Connected;
+
+
+            if (tmp != null)
+            {
+                BoxWithMaterial ActualBox = con.LoadBoxWithMaterial(tmp.ProcesBoxId);
+
+                if (ActualBox != null)
+                {
+                    Contract ActualContract = con.LoadContract(ActualBox.ContractId);
+
+                    if (ActualContract != null)
+                    {
+                        if (SendLabelToPrinter(ActualBox, ActualContract))
+                        {
+                            con.MarkKardexSpeakerAsDone(tmp);
+                        }
+                    }
+                    else
+                    {
+                        JhvLogger.LogInformation("CHYBA VYHLEDÁNÍ ZAKÁZKY (ContractId = " + ActualBox.ContractId + ")");
+                    }
+                }
+                else
+                {
+                    JhvLogger.LogInformation("CHYBA VYHLEDÁNÍ BOXU S MATERIÁLEM (ProcesBoxId = "+ tmp.ProcesBoxId+")");
+                }
+            }
+            else
+            {
+                JhvLogger.LogInformation("CHYBA PŘÍKAZU K TISKU");
+            }
         }
 
         private void LabelPrintWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -183,13 +217,17 @@ namespace _515_ZF_LabelPrinter
 
         #region Printer
 
-        private bool SendLabelToPrinter()
+        private bool SendLabelToPrinter(BoxWithMaterial ActualBox, Contract ActualContract)
         {
             try
             {
+                //Vytvoř a naplň label aktuálními daty
+                string ActualLabel = CreatLabel(Properties.Settings.Default.PathToLabelTemplate, ActualBox, ActualContract);
+
                 System.Net.Sockets.TcpClient TcpClient = new System.Net.Sockets.TcpClient(Properties.Settings.Default.PrinterIpAdress, Properties.Settings.Default.PrinterPort);
                 System.Net.Sockets.NetworkStream NetworkStream = TcpClient.GetStream();
-                System.IO.Stream FileStream = System.IO.File.OpenRead(Properties.Settings.Default.PathToLabelTemplate);
+
+                System.IO.Stream FileStream = System.IO.File.OpenRead(ActualLabel);
                 byte[] FileBuffer = new byte[FileStream.Length];
 
                 FileStream.Read(FileBuffer, 0, (int)FileStream.Length);
@@ -202,6 +240,73 @@ namespace _515_ZF_LabelPrinter
                 JhvConsole.catchExeption(ex);
             }
             return false;
+        }
+
+        private string CreatLabel(string originalLabel, BoxWithMaterial ActualBox, Contract ActualContract)
+        {
+            try
+            {
+                List<FinalPart> FinalPartList = new List<FinalPart>();
+
+                Encoding ActualEncoding = GetEncoding(originalLabel);
+
+                string text = File.ReadAllText(originalLabel, ActualEncoding);
+
+
+                text = text.Replace("[$ZAKAZKA$]", ActualContract.Id.ToString());
+                text = text.Replace("[$MNOZSTVI$]", ActualBox.Quantity.ToString());
+                text = text.Replace("[$FINALPART$]", ActualBox.FinalPart.Trim());
+                text = text.Replace("[$INPUTPART$]", ActualBox.InputPart.Trim());
+                text = text.Replace("[$PRACOVISTE$]", "JHV SKLADKA");
+
+                string umisteni = "KX";
+                if (ActualBox.Location != null)
+                {
+                    if (ActualBox.Location.Carrier >= 0)
+                    {
+                        umisteni += "-" + ActualBox.Location.Carrier;
+                        if (ActualBox.Location.Slot >= 0)
+                        {
+                            umisteni += "-" + ActualBox.Location.Slot;
+                        }
+                    }
+                }
+                text = text.Replace("[$UMISTENI$]", umisteni);
+                text = text.Replace("[$VYSKALDNENI$]", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
+                text = text.Replace("[$LASEROVANI$]", ActualBox.BoxInsertTime.ToString("dd.MM.yyyy HH:mm:ss"));
+
+                string path = Path.Combine(Properties.Settings.Default.FolderForGeneratedLabels, "Label_BoxId_" + ActualBox.Id + ".txt");
+
+                using (StreamWriter outputFile = new StreamWriter(path))
+                {
+
+                    outputFile.WriteLine(text);
+                }
+
+
+                return path;
+            }
+            catch (FormatException fe)
+            {
+                JhvLogger.CatchException(fe.Message, "Chyba importu z txt");
+            }
+            return string.Empty;
+        }
+
+        private static Encoding GetEncoding(string path)
+        {
+            // Detect from File (NET standard 1.3+ or .NET 4+)
+            DetectionResult result = CharsetDetector.DetectFromFile(path); // or pass FileInfo
+
+            // Get the best Detection
+            DetectionDetail resultDetected = result.Detected;
+
+            // Get the alias of the found encoding
+            string encodingName = resultDetected.EncodingName;
+
+            // Get the System.Text.Encoding of the found encoding (can be null if not available)
+            Encoding encoding = resultDetected.Encoding;
+            return encoding;
         }
 
         #endregion

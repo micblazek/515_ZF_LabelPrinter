@@ -13,7 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <GroupBox Header="Nastavení tiskárny" Grid.Row="0">
@@ -36,7 +36,7 @@
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="Výstup pro výstupní kardex" Grid.Row="1">
+        <GroupBox Header="Vzor lablu pro tiskárnu" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
@@ -51,6 +51,23 @@
                         Style="{DynamicResource JhvButton_BlueStretch}" Click="btnSelectPathToLabelTemplate_Click"  />
                 <TextBox Grid.Column="0" Style="{DynamicResource JhvTextBox}" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" 
                              TextWrapping="WrapWithOverflow" Text="{Binding Source={x:Static p:Settings.Default}, Path=PathToLabelTemplate, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Adresář pro generované štítky" Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Cesta:" Style="{DynamicResource JhvLabel}" Grid.Column="0"  />
+                <Button x:Name="btnFolderForGeneratedlabels" Content="Vybrat adresář ..." Grid.Column="2"  
+                        Style="{DynamicResource JhvButton_BlueStretch}" Click="btnFolderForGeneratedlabels_Click"   />
+                <TextBox Grid.Column="0" Style="{DynamicResource JhvTextBox}" Grid.Row="1" Grid.ColumnSpan="2" IsEnabled="False" 
+                             TextWrapping="WrapWithOverflow" Text="{Binding Source={x:Static p:Settings.Default}, Path=FolderForGeneratedLabels, Mode=TwoWay}"/>
             </Grid>
         </GroupBox>
     </Grid>
