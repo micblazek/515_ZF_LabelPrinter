@@ -21,17 +21,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Poslední kontorla - start" Grid.Row="0" Grid.Column="1">
+        <GroupBox Header="Poslední kontrola - start" Grid.Row="0" Grid.Column="1">
             <Grid>
                 <Label Content="{Binding Path=LastStart}" Style="{DynamicResource JhvLabelMedium_Blue}" ContentStringFormat="HH:mm:ss" Grid.Column="1"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Poslední kontorla - konec" Grid.Row="1" Grid.Column="1">
+        <GroupBox Header="Poslední kontrola - konec" Grid.Row="1" Grid.Column="1">
             <Grid>
                 <Label Content="{Binding Path=LastEnd}" Style="{DynamicResource JhvLabelMedium_Blue}" ContentStringFormat="HH:mm:ss" Grid.Column="1"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Poslední kontorla - délka trvání" Grid.Row="2" Grid.Column="1">
+        <GroupBox Header="Poslední kontrola - délka trvání" Grid.Row="2" Grid.Column="1">
             <Grid>
                 <Label Content="{Binding Path=DurationLast}" Style="{DynamicResource JhvLabelMedium_Blue}" ContentStringFormat="HH:mm:ss" Grid.Column="1"/>
             </Grid>
