@@ -186,7 +186,7 @@ namespace _515_ZF_LabelPrinter
 
                     if (ActualContract != null)
                     {
-                        if (SendLabelToPrinter(ActualBox, ActualContract, tmp.Id))
+                        if (SendLabelToPrinter(ActualBox, ActualContract, tmp))
                         {
                             con.MarkKardexSpeakerAsDone(tmp);
                         }
@@ -217,12 +217,12 @@ namespace _515_ZF_LabelPrinter
 
         #region Printer
 
-        private bool SendLabelToPrinter(BoxWithMaterial ActualBox, Contract ActualContract, int LableId)
+        private bool SendLabelToPrinter(BoxWithMaterial ActualBox, Contract ActualContract, LabelData Lable)
         {
             try
             {
                 //Vytvoř a naplň label aktuálními daty
-                string ActualLabel = CreatLabel(Properties.Settings.Default.PathToLabelTemplate, ActualBox, ActualContract, LableId);
+                string ActualLabel = CreatLabel(Properties.Settings.Default.PathToLabelTemplate, ActualBox, ActualContract, Lable);
 
                 System.Net.Sockets.TcpClient TcpClient = new System.Net.Sockets.TcpClient(Properties.Settings.Default.PrinterIpAdress, Properties.Settings.Default.PrinterPort);
                 System.Net.Sockets.NetworkStream NetworkStream = TcpClient.GetStream();
@@ -242,7 +242,7 @@ namespace _515_ZF_LabelPrinter
             return false;
         }
 
-        private string CreatLabel(string originalLabel, BoxWithMaterial ActualBox, Contract ActualContract, int LableId)
+        private string CreatLabel(string originalLabel, BoxWithMaterial ActualBox, Contract ActualContract, LabelData Lable)
         {
             try
             {
@@ -257,7 +257,7 @@ namespace _515_ZF_LabelPrinter
                 text = text.Replace("[$MNOZSTVI$]", ActualBox.Quantity.ToString());
                 text = text.Replace("[$FINALPART$]", ActualBox.FinalPart.Trim());
                 text = text.Replace("[$INPUTPART$]", ActualBox.InputPart.Trim());
-                text = text.Replace("[$PRACOVISTE$]", "JHV SKLADKA");
+                text = text.Replace("[$PRACOVISTE$]", "-");
 
                 string umisteni = "KX";
                 if (ActualBox.Location != null)
@@ -271,11 +271,11 @@ namespace _515_ZF_LabelPrinter
                         }
                     }
                 }
-                text = text.Replace("[$UMISTENI$]", umisteni);
+                text = text.Replace("[$UMISTENI$]", Lable.Position);
                 text = text.Replace("[$VYSKALDNENI$]", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
                 text = text.Replace("[$LASEROVANI$]", ActualBox.BoxInsertTime.ToString("dd.MM.yyyy HH:mm:ss"));
 
-                string path = Path.Combine(Properties.Settings.Default.FolderForGeneratedLabels, "Label_"+LableId+"_BoxId_" + ActualBox.Id + ".txt");
+                string path = Path.Combine(Properties.Settings.Default.FolderForGeneratedLabels, "Label_"+Lable.Id+"_BoxId_" + ActualBox.Id + ".txt");
 
                 using (StreamWriter outputFile = new StreamWriter(path))
                 {
