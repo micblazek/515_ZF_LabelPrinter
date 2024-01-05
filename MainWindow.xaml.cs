@@ -275,12 +275,17 @@ namespace _515_ZF_LabelPrinter
                 text = text.Replace("[$VYSKALDNENI$]", DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
                 text = text.Replace("[$LASEROVANI$]", ActualBox.BoxInsertTime.ToString("dd.MM.yyyy HH:mm:ss"));
 
-                if(ActualContract.Linka!=null && ActualContract.Linka.Length > 5)
+                if(ActualContract.Linka!=null && ActualContract.Linka.Length > 5 && !Lable.IsDuoControl)
                 {
                     string tmpLinka ="P"+ActualContract.Linka.Trim().Substring(3,2);
                     text = text.Replace("[$LINKA$]", tmpLinka);
                 }
-                
+
+                if (Lable.IsDuoControl)
+                {
+                    text = text.Replace("[$LINKA$]", "DUO");
+                }
+
                 string path = Path.Combine(Properties.Settings.Default.FolderForGeneratedLabels, "Label_"+Lable.Id+"_BoxId_" + ActualBox.Id + ".txt");
 
                 using (StreamWriter outputFile = new StreamWriter(path))
