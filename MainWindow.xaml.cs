@@ -36,6 +36,7 @@ namespace _515_ZF_LabelPrinter
         public MainWindow()
         {
             InitializeComponent();
+            JhvConsole.WriteLine("StartApp", JhvConsole.STATUS_TIP.ALWAYS);
 
             DatabaseControl = new DispatcherTimer();
             DatabaseControl.Interval = new TimeSpan(0, 0, 5);
